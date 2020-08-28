@@ -1,0 +1,93 @@
+{
+  "name": "vaidarcerto",
+  "version": "0.0.1",
+  "private": false,
+  "author": {
+    "name": "Francis Rodrigues",
+    "email": "francis.rod01@outlook.com"
+  },
+  "engines": {
+    "node": "10"
+  },
+  "scripts": {
+    "scripts:firebase-config": "node scripts/generate-firebase-config-file.js",
+    "dev": "npm run clean && npm run scripts:firebase-config && next \"src/app/\"",
+    "dev:prebuild": "npm run clean && npm run scripts:firebase-config",
+    "dev:build": "npm run dev:prebuild && npm run build-public && npm run build-funcs && npm run dev:build-app && npm run copy-deps && npm run install-deps",
+    "dev:build-app": "cross-env DEV_CI=true next build \"src/app/\"",
+    "dev:serve": "cross-env NODE_ENV=development firebase serve",
+    "clean": "rimraf \"dist/functions/**\" && rimraf \"dist/public\"",
+    "prebuild": "npm run clean && npm run scripts:firebase-config",
+    "build": "npm run build-public && npm run build-funcs && npm run build-app && npm run copy-deps && npm run install-deps",
+    "build-public": "cpx \"src/app/public/**/*.*\" \"dist/public\" -C",
+    "build-funcs": "babel \"src/functions\" --out-dir \"dist/functions\"",
+    "build-app": "next build \"src/app/\"",
+    "copy-deps": "cpx \"*{package.json,package-lock.json,yarn.lock}\" \"dist/functions\" -C",
+    "install-deps": "cd \"dist/functions\" && npm i",
+    "deploy": "firebase deploy -P $FIREBASE_PROJECT_ALIAS --token $FIREBASE_TOKEN --only hosting:$FIREBASE_PROJECT_ALIAS,functions:nextApp,firestore:rules,storage",
+    "serve": "cross-env NODE_ENV=production firebase serve",
+    "emulators": "firebase emulators:start",
+    "test": "mocha --exit \"src/**test**/firestore/**.js\"",
+    "analyze": "ANALYZE=true npm-run-all --serial clean build-public build-app"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@babel/plugin-transform-object-assign": "^7.10.4",
+    "@grpc/grpc-js": "1.1.5",
+    "@material-ui/core": "4.11.0",
+    "@material-ui/icons": "4.9.1",
+    "@material-ui/lab": "4.0.0-alpha.56",
+    "@next/bundle-analyzer": "9.5.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "algoliasearch": "4.3.0",
+    "babel-plugin-optimize-clsx": "2.6.1",
+    "chart.js": "2.9.3",
+    "clsx": "1.1.1",
+    "dotenv": "^8.2.0",
+    "firebase": "7.19.1",
+    "firebase-admin": "9.1.1",
+    "firebase-functions": "3.11.0",
+    "next": "9.5.0",
+    "next-seo": "4.7.3",
+    "node-fetch": "2.6.0",
+    "qs": "6.9.4",
+    "react": "16.13.1",
+    "react-chartjs-2": "2.9.0",
+    "react-dom": "16.13.1",
+    "react-instantsearch-dom": "6.6.0",
+    "react-markdown": "^4.3.1",
+    "react-number-format": "^4.4.1",
+    "ws": "^7.3.1",
+    "xhr2": "^0.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.10.5",
+    "@firebase/testing": "^0.20.9",
+    "babel-plugin-transform-imports": "2.0.0",
+    "cpx": "^1.5.0",
+    "cross-env": "^7.0.2",
+    "firebase-functions-test": "^0.2.1",
+    "firebase-tools": "8.9.2",
+    "firestore-export-import": "^0.5.0",
+    "google-gax": "1.15.3",
+    "mocha": "^8.0.1",
+    "npm-run-all": "4.1.5",
+    "rimraf": "^3.0.2"
+  }
+}
