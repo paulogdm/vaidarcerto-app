@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonJS",
+    "target": "es6",
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      // Assuming your modules live in ./src, update this path as necessary
+      "~/*": ["./src/app/*"],
+      "~/services/api/*": ["./src/mocks/api/*"],
+      "~/mocks-data/*": ["./src/mocks/data/*"],
+      "~/modules/*": ["./src/app/modules/*"],
+      "~/components/*": ["./src/app/components/*"],
+    },
+  },
+  // Add any build/compiled folders here to stop vscode searching those
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "out",
+    ".next",
+    "coverage",
+  ],
+}
