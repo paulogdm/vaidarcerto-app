@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "default": "vaidarcerto-28531",
+    "staging": "vaidarcerto-<sua-versao>"
+  },
+  "targets": {
+    "vaidarcerto-28531": {
+      "hosting": {
+        "default": [
+          "vaidarcerto-28531"
+        ]
+      }
+    },
+    "vaidarcerto-<sua-versao>": {
+      "hosting": {
+        "staging": [
+          "vaidarcerto-<sua-versao>"
+        ]
+      }
+    }
+  }
+}

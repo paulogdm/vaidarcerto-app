@@ -1,0 +1,100 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // This rule allows anyone on the internet to view, edit, and delete
+    // all data in your Firestore database. It is useful for getting
+    // started, but it is configured to expire after 30 days because it
+    // leaves your app open to attackers. At that time, all client
+    // requests to your Firestore database will be denied.
+    //
+    // Make sure to write security rules for your app before that time, or else
+    // your app will lose access to your Firestore database
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Override rules for global settings
+    match /globalSettings/{document=**} {
+      allow read;
+    }
+
+    match /pages/{document=**} {
+      allow read;
+    }
+
+    // Override rules for categories list
+    match /categoriesList/{document=**} {
+      allow read;
+    }
+
+    // Override rules for segments
+    match /segments/{document=**} {
+      allow read;
+    }
+
+    // Override rules for /customers
+    match /customers/{customerId} {
+      allow read: if isPublished() || (isAuthenticated() && (userIsOwner() || isAdministrator()));
+      // it's a free registration.
+      allow create: if hasAllFields(['title', 'primaryText', 'phone', 'inCharge', 'idCard']);
+      allow update: if isAuthenticated() && (userIsOwner() || hasAllowedRole('roleToWrite'));
+      allow delete: if (isAuthenticated() && isAdministrator());
+
+      // Nested match.
+      match /posts/{postId} {
+        allow read: if (resource.data.visibility == "public") || (isAuthenticated() && userIsOwner());
+        allow create: if (isAuthenticated() && emailIsVerified() && userIsOwner());
+        allow delete: if isAuthenticated() && (userIsOwner() || isAdministrator());
+      }
+    }
+
+    // Override rules for /payments
+    match /payments/{document=**} {
+      allow read: if (isAuthenticated() && isAdministrator());
+      allow write: if isAuthenticated() && emailIsVerified();
+      allow delete: if false; // deny delete a payment.
+    }
+
+    match /users/{userId} {
+      allow write: if (request.auth.uid == userId);
+      allow delete: if (isAuthenticated() && isAdministrator());
+    }
+
+    // Check if has all required fields.
+    function hasAllFields(objFields) {
+      return (request.resource.data.keys().toSet().hasAll(objFields));
+    }
+
+    // User is signed in somehow.
+    function isAuthenticated() {
+      return (request.auth != null);
+    }
+
+    // User has his email verified
+    function emailIsVerified() {
+      return (request.auth.token.email_verified);
+    }
+
+    // User is owner
+    function userIsOwner() {
+      return (resource.data.get('authorId', null) == request.auth.uid);
+    }
+
+    // Check for allowed role
+    function hasAllowedRole(role) {
+      return (request.auth.token.role == resource.data.get(role, 'admin'));
+    }
+
+    // User has admin role
+    function isAdministrator() {
+      let userId = request.auth.uid;
+      let adminExists = exists(/databases/$(database)/documents/admins/$(userId));
+      return adminExists;
+    }
+
+    function isPublished() {
+      return (resource.data.get('status', null) == 'published');
+    }
+  }
+}

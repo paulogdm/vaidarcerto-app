@@ -1,0 +1,46 @@
+{
+  "hosting": [
+    {
+      "target": "default",
+      "site": "vaidarcerto-28531",
+      "public": "dist/public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**/**",
+          "function": "nextApp"
+        }
+      ]
+    },
+    {
+      "target": "staging",
+      "site": "<sua-versao>",
+      "public": "dist/public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**/**",
+          "function": "nextApp"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "source": "dist/functions"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
