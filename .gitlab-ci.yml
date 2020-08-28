@@ -1,0 +1,76 @@
+image: node:12.16.1
+
+cache:
+  key: cache_npm
+  paths:
+  - .cache_npm
+
+stages:
+  - install
+  - build
+  - deploy
+
+install_client:
+  stage: install
+  only:
+    - staging
+    - production
+  script:
+    - npm i --cache ../.cache_npm
+  artifacts:
+    paths:
+      - node_modules
+
+build_client_staging:
+  stage: build
+  only:
+    - staging
+  script:
+    - npm run build
+  environment:
+    name: staging
+  dependencies:
+    - install_client
+  artifacts:
+    paths:
+      - dist
+
+build_client_production:
+  stage: build
+  only:
+    - production
+  script:
+    - npm run build
+  environment:
+    name: production
+  dependencies:
+    - install_client
+  artifacts:
+    paths:
+      - dist
+
+deploy_all_staging:
+  stage: deploy
+  only:
+    - staging
+  script:
+    - npm i -g firebase-tools --cache ../.cache_npm
+    - npm run deploy
+  environment:
+    name: staging
+  dependencies:
+    - install_client
+    - build_client_staging
+
+deploy_all_production:
+  stage: deploy
+  only:
+    - production
+  script:
+    - npm i -g firebase-tools --cache ../.cache_npm
+    - npm run deploy
+  environment:
+    name: production
+  dependencies:
+    - install_client
+    - build_client_production
