@@ -1,7 +1,7 @@
 import { freeze } from '~/modules/utils/request';
 import segmentsMock from '~/mocks-data/segments';
 
-export default async () => {
+const getSegments = async () => {
   await freeze(3000);
 
   const segments = segmentsMock.segments;
@@ -17,3 +17,5 @@ export default async () => {
 
   return sortedMap;
 }
+
+export default getSegments;

@@ -1,7 +1,7 @@
 import { database, parseQuerySnapshot } from '~/modules/firebase/services';
 import { itHasLength } from '~/modules/utils/objects';
 
-export default async (query) => {
+const getCustomer = async (query) => {
   const customerQuery = database.collection('customers')
     .where(query.label, '==', query.value)
     .where('status', '==', 'published')
@@ -22,3 +22,5 @@ export default async (query) => {
 
   return props.customerItem;
 }
+
+export default getCustomer;

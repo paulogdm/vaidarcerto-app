@@ -40,7 +40,7 @@ const handleFilter = async (query) => {
   return newArr;
 }
 
-export default async (req, res) => {
+const queryCustomer = async (req, res) => {
   const { query } = req;
   const props = { items: { hits: [], nbHits: 0 } };
 
@@ -61,3 +61,5 @@ export default async (req, res) => {
 
   res.status(200).json(props.items);
 }
+
+export default queryCustomer;

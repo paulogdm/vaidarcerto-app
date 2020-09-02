@@ -36,7 +36,7 @@ const Layout = props => {
         height: 320,
       })
     : ({
-        url: restProps.logoObj.url + `&w=${300}&h=${200}`,
+        url: (restProps && restProps.logoObj) ? restProps.logoObj.url + `&w=${300}&h=${200}` : '',
         width: 300,
         height: 200,
       });

@@ -92,7 +92,7 @@ const SearchIconLink = () => {
 }
 
 const PrimarySearchAppBar = (props) => {
-  const { appTitle, menuHeader, ...rest } = props;
+  const { appTitle, menuHeader = {}, ...rest } = props;
   const classes = useStyles();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 

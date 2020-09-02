@@ -1,15 +1,16 @@
 const path = require('path');
 const functions = require('firebase-functions');
-const next = require('next');
+const { default: next } = require('next');
 const algoliasearch = require('algoliasearch');
 
 // Full-text search API credentials
 const algoliaCredentials = functions.config().fulltext_search.algolia;
 const fulltextSearch = algoliasearch(algoliaCredentials.appid, algoliaCredentials.object_apikey);
 
-const distDir = `${path.relative(process.cwd(), __dirname)}/next`;
+const isDev = process.env.NODE_ENV !== 'production';
+const distDir = path.join('src', require('./src/next.config.js').distDir);
 const app = next({
-  dev: false,
+  dev: isDev,
   conf: { distDir }
 });
 const handle = app.getRequestHandler();

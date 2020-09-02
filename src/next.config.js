@@ -4,7 +4,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 const { parsed: localEnv } = require('dotenv').config();
 
-const pkg = require('../../package.json');
+const pkg = require('../package.json');
 
 const withKeys = (obj, add_it, drop_it = []) => {
   return Object.entries(obj).reduce((acc, [key, value]) => {
@@ -64,7 +64,7 @@ const parsePublicEnvs = () => ({
 
 module.exports = withBundleAnalyzer({
   // Base directory to the app.
-  distDir: '../../dist/functions/next',
+  distDir: '../.next',
   poweredByHeader: false,
 
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
@@ -88,11 +88,8 @@ module.exports = withBundleAnalyzer({
     }
 
     const customAliasRoutes = {
-      '~/services/api': path.resolve(__dirname, './services/api/'),
-      '~/modules': path.resolve(__dirname, './modules/'),
-      '~/components': path.resolve(__dirname, './components/'),
+      '~': path.resolve(__dirname), // it points to ./src/
       ...customAlias.routes,
-      '~': path.resolve(__dirname), // it points to ./src/app
     }
 
     Object.keys(customAliasRoutes).map((k, i) => {

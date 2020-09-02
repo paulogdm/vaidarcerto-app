@@ -1,7 +1,7 @@
 import { database, parseQuerySnapshot } from '../../modules/firebase/services';
 
 const getCategories = async () => {
-  const customerQuery = database.collection('categoriesList');
+  const customerQuery = database.collection('categories-list');
   const querySnapshot = await customerQuery.get();
 
   const props = { newObject: {} };

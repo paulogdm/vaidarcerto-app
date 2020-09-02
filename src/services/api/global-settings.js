@@ -1,7 +1,7 @@
 import { database, parseQuerySnapshot } from '~/modules/firebase/services';
 
 const globalSettings = async () => {
-  const globalRef = database.collection('globalSettings');
+  const globalRef = database.collection('global-settings');
   const querySnapshot = await globalRef.get();
 
   const props = {};

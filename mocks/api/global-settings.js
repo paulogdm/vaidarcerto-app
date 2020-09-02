@@ -2,7 +2,7 @@ import { freeze } from '~/modules/utils/request';
 
 import { globalSettings } from '~/mocks-data/global-settings';
 
-export default async (req, res) => {
+const globalSettings = async (req, res) => {
   await freeze(2000);
   const props = {};
   const dataLength = Object.keys(globalSettings).length;
@@ -28,3 +28,5 @@ export default async (req, res) => {
 
   return props;
 }
+
+export default globalSettings;
