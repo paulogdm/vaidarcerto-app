@@ -1,4 +1,4 @@
-const { slugify, createUUID } = require('../../../src/app/modules/utils/strings');
+const { slugify, createUUID } = require('../../../src/modules/utils/strings');
 
 const addCustomer = (dbInstance, peaceOfObject = {}) => {
   const collectionRef = dbInstance.collection('customers');

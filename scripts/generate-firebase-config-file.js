@@ -4,7 +4,7 @@ const fs = require('fs');
 const useEnvs = process.env.NODE_ENV === "development" ? localEnv : process.env;
 
 // Generate this file with ENVs variables to build it with CI/CD
-const _firebasePath = './src/app/modules/firebase/_config-object.json';
+const _firebasePath = './src/modules/firebase/_config-object.json';
 const _firebaseConfig = `{
   "apiKey": "${useEnvs.REACT_APP_FIREBASE_API_KEY}",
   "authDomain": "${useEnvs.REACT_APP_FIREBASE_AUTH_DOMAIN}",

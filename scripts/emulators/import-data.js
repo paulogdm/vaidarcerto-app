@@ -1,6 +1,6 @@
 const firebase = require('firebase-admin');
 
-const getFirestore = require('../../src/app/modules/firebase/firestore');
+const getFirestore = require('../../src/modules/firebase/firestore');
 
 const addPages = require('./add-collections/add-pages');
 const addSettings = require('./add-collections/add-settings');

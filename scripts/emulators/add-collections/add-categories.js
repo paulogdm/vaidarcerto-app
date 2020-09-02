@@ -1,6 +1,6 @@
 
 const addCategories = (dbInstance) => {
-  const collectionRef = dbInstance.collection('categoriesList');
+  const collectionRef = dbInstance.collection('categories-list');
   const docData = {
     locale: "pt-BR",
     tagsList: [

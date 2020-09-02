@@ -1,4 +1,4 @@
-const { globalSettings } = require('../../../src/mocks/data/global-settings');
+const { globalSettings } = require('../../../mocks/data/global-settings');
 
 const addSettings = (dbInstance) => {
   const collectionRef = dbInstance.collection('globalSettings');

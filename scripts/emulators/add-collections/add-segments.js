@@ -1,4 +1,4 @@
-const { segments } = require('../../../src/mocks/data/segments');
+const { segments } = require('../../../mocks/data/segments');
 
 const addSegments = (dbInstance) => {
   const collectionRef = dbInstance.collection('segments');
