@@ -3,7 +3,7 @@
     {
       "target": "default",
       "site": "vaidarcerto-28531",
-      "public": "dist/public",
+      "public": "public",
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -11,7 +11,7 @@
       ],
       "rewrites": [
         {
-          "source": "**/**",
+          "source": "**",
           "function": "nextApp"
         }
       ]
@@ -34,7 +34,12 @@
     }
   ],
   "functions": {
-    "source": "dist/functions"
+    "source": ".",
+    "predeploy": [
+      "npm --prefix \"$PROJECT_DIR\" install",
+      "npm --prefix \"$PROJECT_DIR\" run build"
+    ],
+    "runtime": "nodejs10"
   },
   "firestore": {
     "rules": "firestore.rules",
@@ -42,5 +47,19 @@
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    }
   }
 }

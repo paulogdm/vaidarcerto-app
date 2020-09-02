@@ -10,7 +10,9 @@
 
 .env*
 dist/
+.next/
 next/
+out/
 .firebase/
 node_modules/
 scripts/data-clean/firestore/*

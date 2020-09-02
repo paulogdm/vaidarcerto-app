@@ -37,7 +37,7 @@ Now using node v10.20.1 (npm v6.14.4)
 
 ```
 BROWSER=none
-REACT_APP_RUNNING_AT=localhost
+REACT_APP_RUNNING_AT=__localhost
 REACT_APP_FACEBOOK_APP_ID=xxxxx
 REACT_APP_FIREBASE_API_KEY=xxxxxxxxxxxxxxx
 REACT_APP_FIREBASE_AUTH_DOMAIN=vaidarcerto-xxxxx.firebaseapp.com
@@ -109,7 +109,9 @@ Then run the `import-database` file using NodeJS
 
 In the project directory, you can run:
 
-### `npm run dev`
+### On `development` environment:
+
+#### `npm run dev` on development environment
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -117,7 +119,54 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `npm run build`
+#### `npm run dev:build` to build it locally
+
+You only need to change 2 environment variable's values:
+
+```bash
+REACT_APP_RUNNING_AT=localhost
+REACT_APP_GLOBAL_SETTINGS_DOMAIN_URI=http://localhost:5000
+```
+
+The first line is about running the Firebase emulators, and the second one is about the server-side fetching needs **JavaScript requests policy** to prevent [web-cache poisoning][19].
+
+Then, run the command `npm run dev:build` to generate an optimized Next.js application, see the output below:
+
+```bash
+Automatically optimizing pages  
+
+Page                                                           Size     First Load JS
+┌ ● /                                                          3.27 kB         119 kB
+├   /_app                                                      0 B            86.2 kB
+├ ○ /404                                                       2.71 kB        88.9 kB
+├ λ /auth/register                                             30.8 kB         278 kB
+├ λ /b/[slug]                                                  3.03 kB         239 kB
+├ λ /post/[slug]                                               1.47 kB         117 kB
+├ λ /post/covid-19                                             1.97 kB         118 kB
+├ λ /search                                                    40.4 kB         167 kB
+└ λ /tag/[slug]                                                1.95 kB         118 kB
++ First Load JS shared by all                                  86.2 kB
+  ├ chunks/a3aad4822a203ba31315771219a7af721782007b.84165f.js  21.5 kB
+  ├ chunks/commons.4e9af9.js                                   11.4 kB
+  ├ chunks/framework.0e690f.js                                 42.6 kB
+  ├ chunks/main.dc10d3.js                                      6.28 kB
+  ├ chunks/pages/_app.85d19d.js                                2.38 kB
+  └ chunks/webpack.27ee9f.js                                   1.97 kB
+
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
+○  (Static)  automatically rendered as static HTML (uses no initial props)
+●  (SSG)     automatically generated as static HTML + JSON (uses getStaticProps)
+
+Redirects
+
+┌ source: /:path+/
+├ destination: /:path+
+└ permanent: true
+```
+
+### In production environment
+
+#### `npm run build` to build on the server production
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -127,11 +176,25 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+#### `npm run deploy` to deploy it on Firebase
+
+This is the final step to deploy your application. It should send your functions, hosting, firebase rules and return a successful message on the console.
+
 ## Testing through Firebase Emulators
 
-### Before start the emulators
+The first step is to select the project from your Firebase projects list based on an **alias**. This is set up in the `.firebaserc` file.
 
-Add a `.runtimeconfig.json` file into `functions` folder containing environments that the local Cloud functions could access. See the section about [**~/Functions Environment Variables**](#functions_environment_variables) section.
+The command to select the `default` alias is below:
+
+```bash
+~$ $ ./node_modules/.bin/firebase use default
+
+Now using alias default (vaidarcerto-28531)
+```
+
+### Before start the emulators (optional step)
+
+Add a `.runtimeconfig.json` in the root folder containing environments that the local Cloud functions could access. See the section about [**~/Functions Environment Variables**](#functions_environment_variables) section.
 
 ### Setting up emulators
 
@@ -139,13 +202,15 @@ Add a `.runtimeconfig.json` file into `functions` folder containing environments
 ~$ ./node_modules/.bin/firebase init emulators
 ```
 
-Start the firebase emulators like below:
+Start the firebase emulators with a short npm command:
 
 ```sh
-~$ ./node_modules/.bin/firebase emulators:start
+~$ npm run emulators
+
+./node_modules/.bin/firebase emulators:start
 ```
 
-Showing the following output:
+It will return the following output:
 
 ```
 i  emulators: Starting emulators: functions, firestore, hosting
@@ -157,7 +222,6 @@ i  hosting[staging]: Serving hosting files from: dist/public
 ✔  hosting[staging]: Local server: http://localhost:5005
 i  ui: Emulator UI logging to ui-debug.log
 i  functions: Watching "/home/user/projects/vaidarcerto/dist/functions" for Cloud Functions...
-
 ```
 
 ### Start the test environment
@@ -226,3 +290,4 @@ This project is not shared by a license. You're not authorized to use this proje
   [16]: https://chris.beams.io/posts/git-commit/
   [17]: https://material-ui.com/
   [18]: https://www.algolia.com/doc/guides/building-search-ui/going-further/server-side-rendering/react/
+  [19]: https://www.skeletonscribe.net/2013/05/practical-http-host-header-attacks.html
