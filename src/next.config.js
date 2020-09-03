@@ -63,10 +63,11 @@ const parsePublicEnvs = () => ({
 });
 
 module.exports = withBundleAnalyzer({
-  basePath: '',
-  assetPrefix: !isDev ? '/vaidarcerto-app' : '',
+  target: 'serverless',
+  // basePath: '',
+  // assetPrefix: !isDev ? '/vaidarcerto-app' : '',
   // Base directory to the app.
-  distDir: '../.next',
+  // distDir: '../.next',
   poweredByHeader: false,
 
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
@@ -101,21 +102,21 @@ module.exports = withBundleAnalyzer({
     // next includes node_modules in webpack externals. Some of those have dependencies
     // on the aliases defined above. If a module is an external those aliases won't be used.
     // We need tell webpack to not consider those packages as externals.
-    if (isServer) {
-      const [nextExternals, ...externals] = config.externals;
+    // if (isServer) {
+    //   const [nextExternals, ...externals] = config.externals;
 
-      if (externals.length > 0) {
-        // currently not the case but other next plugins might introduce additional
-        // rules for externals. We would need to handle those in the callback
-        throw new Error('There are other externals in the webpack config.');
-      }
+    //   if (externals.length > 0) {
+    //     // currently not the case but other next plugins might introduce additional
+    //     // rules for externals. We would need to handle those in the callback
+    //     throw new Error('There are other externals in the webpack config.');
+    //   }
 
-      config.externals = [
-        (context, request, callback) => {
-          return nextExternals(context, request, callback);
-        },
-      ];
-    }
+    //   config.externals = [
+    //     (context, request, callback) => {
+    //       return nextExternals(context, request, callback);
+    //     },
+    //   ];
+    // }
 
     return Object.assign({}, config, {
       plugins,
