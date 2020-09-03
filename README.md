@@ -119,21 +119,18 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-#### `npm run dev:build` to build it locally
+### In production environment
 
-You only need to change 2 environment variable's values:
+#### `npm run build` to build on the server production
 
-```bash
-REACT_APP_RUNNING_AT=localhost
-REACT_APP_GLOBAL_SETTINGS_DOMAIN_URI=http://localhost:5000
-```
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The first line is about running the Firebase emulators, and the second one is about the server-side fetching needs **JavaScript requests policy** to prevent [web-cache poisoning][19].
-
-Then, run the command `npm run dev:build` to generate an optimized Next.js application, see the output below:
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
 ```bash
-Automatically optimizing pages  
+Automatically optimizing pages
 
 Page                                                           Size     First Load JS
 ┌ ● /                                                          3.27 kB         119 kB
@@ -164,16 +161,6 @@ Redirects
 └ permanent: true
 ```
 
-### In production environment
-
-#### `npm run build` to build on the server production
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 #### `npm run deploy` to deploy it on Firebase
@@ -191,6 +178,15 @@ The command to select the `default` alias is below:
 
 Now using alias default (vaidarcerto-28531)
 ```
+
+It's needed to change 2 environment variable's values:
+
+```bash
+REACT_APP_RUNNING_AT=localhost
+REACT_APP_GLOBAL_SETTINGS_DOMAIN_URI=http://localhost:5000
+```
+
+The first line is about running the Firebase emulators, and the second one is about the server-side fetching needs **JavaScript requests policy** to prevent [web-cache poisoning][19].
 
 ### Before start the emulators (optional step)
 
@@ -242,6 +238,12 @@ Run `import-data` from emulators scripts to fill data through the full-text sear
 
 ```sh
 ~$ node ./scripts/emulators/import-data.js
+```
+
+## Analyzing the bundle
+
+```bash
+~$ npm run analyze
 ```
 
 ## License
