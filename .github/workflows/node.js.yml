@@ -33,8 +33,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm ci
-      - run: npm run build
+      - name: Building step
+        env: # as an environment variable
+          super_secret: ${{ secrets.SuperSecret }}
+          REACT_APP_RUNNING_AT: ${{ secrets.REACT_APP_RUNNING_AT }}
+          REACT_APP_FACEBOOK_APP_ID: ${{ secrets.REACT_APP_FACEBOOK_APP_ID }}
+          REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
+          REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+          REACT_APP_FIREBASE_DATABASE_URL: ${{ secrets.REACT_APP_FIREBASE_DATABASE_URL }}
+          REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+          REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+          REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
+          REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
+          REACT_APP_GLOBAL_SETTINGS_SITE_NAME: ${{ secrets.REACT_APP_GLOBAL_SETTINGS_SITE_NAME }}
+          REACT_APP_GLOBAL_SETTINGS_TWITTER_USERNAME: ${{ secrets.REACT_APP_GLOBAL_SETTINGS_TWITTER_USERNAME }}
+          REACT_APP_GLOBAL_SETTINGS_DOMAIN_URI: ${{ secrets.REACT_APP_GLOBAL_SETTINGS_DOMAIN_URI }}
+          REACT_APP_COVID19_REGIONS_AROUND: ${{ secrets.REACT_APP_COVID19_REGIONS_AROUND }}
+          REACT_APP_GOV_BR_URI: ${{ secrets.REACT_APP_GOV_BR_URI }}
+          REACT_APP_GOV_BR_APP_ID: ${{ secrets.REACT_APP_GOV_BR_APP_ID }}
+          REACT_APP_ALGOLIA_APP_ID: ${{ secrets.REACT_APP_ALGOLIA_APP_ID }}
+          REACT_APP_ALGOLIA_SEARCH_API_KEY: ${{ secrets.REACT_APP_ALGOLIA_SEARCH_API_KEY }}
+        run: |
+         npm ci
+         npm run build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.5.9
