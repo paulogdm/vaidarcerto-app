@@ -63,6 +63,8 @@ const parsePublicEnvs = () => ({
 });
 
 module.exports = withBundleAnalyzer({
+  basePath: '',
+  assetPrefix: !isDev ? '/vaidarcerto-app' : '',
   // Base directory to the app.
   distDir: '../.next',
   poweredByHeader: false,
