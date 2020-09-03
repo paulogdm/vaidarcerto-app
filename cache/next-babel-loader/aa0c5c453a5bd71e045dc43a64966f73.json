@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Router from 'next/router';\nexport var handleLinkClick = function handleLinkClick(event, route, slug) {\n  var shallow = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;\n  event.preventDefault();\n  return Router.push(route, slug, {\n    shallow: shallow\n  });\n};","map":null,"metadata":{},"sourceType":"module"}

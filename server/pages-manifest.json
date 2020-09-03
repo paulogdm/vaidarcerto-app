@@ -1,0 +1,13 @@
+{
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/auth/register": "pages/auth/register.js",
+  "/b/[slug]": "pages/b/[slug].js",
+  "/": "pages/index.js",
+  "/post/[slug]": "pages/post/[slug].js",
+  "/post/covid-19": "pages/post/covid-19.js",
+  "/search": "pages/search.js",
+  "/tag/[slug]": "pages/tag/[slug].js",
+  "/_error": "pages/_error.js",
+  "/404": "pages/404.html"
+}

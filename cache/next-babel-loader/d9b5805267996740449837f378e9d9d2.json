@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Router from 'next/router';\nexport const handleLinkClick = (event, route, slug, shallow = true) => {\n  event.preventDefault();\n  return Router.push(route, slug, {\n    shallow\n  });\n};","map":null,"metadata":{},"sourceType":"module"}
