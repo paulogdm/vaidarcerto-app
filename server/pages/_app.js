@@ -321,7 +321,7 @@ const configs = {
     port: process.env.PORT || 3000,
     ip: process.env.IP || '0.0.0.0',
     facebook: {"appId":"2377017779256913"},
-    globalSettings: {"siteName":"VaiDarCerto","twitterUsername":"twitter-username","domainUri":"https://francisrod01-vaidarcerto-app.glitch.me","localApi":"https://francisrod01-vaidarcerto-app.glitch.me/api"},
+    globalSettings: {"siteName":"VaiDarCerto","twitterUsername":"twitter-username","domainUri":"https://francisrod01.github.io/vaidarcerto-app","localApi":"https://francisrod01.github.io/vaidarcerto-app/api"},
     covid19: {"regionsAroundUs":"'[\"alzUcJAbsL\",\"LlLUQQW7em\",\"2v59GBInrd\",\"SgfpOQHx9r\",\"AIzthCzqdx\"]'","govBRuri":"https://xx9p7hp1p7.execute-api.us-east-1.amazonaws.com/prod","govBRappId":"unAFkcaNDeXajurGB7LChj8SgQYS2ptm"},
     fullTextSearch: {"algolia":{"appId":"algolia-id","searchApiKey":"algolia-api-key"}}
   },
